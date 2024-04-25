@@ -7,9 +7,6 @@
 	@apply box-border m-0 p-0;
 	font-family: 'Poppins', sans-serif;
 }
-body {
-	@apply w-full h-screen flex flex-col justify-center items-center;
-}
 .container {
 	@apply bg-slate-300;
 	width: 95vw;
