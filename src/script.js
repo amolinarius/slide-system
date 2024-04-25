@@ -18,7 +18,7 @@ function parseContent(_content) {
             }).join('')
         }
     }
-    else if (_content instanceof Object){
+    else if (_content instanceof Object) {
         result = {
             title: _content.title || 'Untitled',
             html: _content.pages.trim() !== '' ? parseContent(_content.pages).html : parseContent('# Empty Document').html
@@ -27,7 +27,6 @@ function parseContent(_content) {
     return result;
 }
 function isStringArray(_array) {
-    console.log(_array instanceof Array);
     if (!(_array instanceof Array)) {return false}
     else {
         var onlyStrings = true;
@@ -52,3 +51,5 @@ else {
 const parsedContent = parseContent(content);
 document.querySelector('.slides-container').innerHTML = parsedContent.html;
 document.querySelector('title').textContent = parsedContent.title;
+
+hljs.highlightAll();

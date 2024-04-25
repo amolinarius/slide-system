@@ -18,3 +18,10 @@ blockquote {
 	@apply block pl-3 py-3 w-full bg-slate-300 rounded-md;
 	border-left: 5px solid #aaa;
 }
+code.hljs, code.hljs * {
+	@apply font-mono text-base rounded-md;
+}
+/* Inline code elements */
+code:not(pre code) {
+	@apply font-mono bg-slate-300 rounded-md px-2;
+}
