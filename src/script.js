@@ -21,13 +21,14 @@ function parseContent(_content) {
     else if (_content instanceof Object){
         result = {
             title: _content.title || 'Untitled',
-            html: _content.pages.trim() !== '' ? parseContent(_content.pages) : parseContent('# Empty Document')
+            html: _content.pages.trim() !== '' ? parseContent(_content.pages).html : parseContent('# Empty Document').html
         }
     }
     return result;
 }
 function isStringArray(_array) {
-    if (!_array instanceof Array) {return false}
+    console.log(_array instanceof Array);
+    if (!(_array instanceof Array)) {return false}
     else {
         var onlyStrings = true;
         _array.forEach(v=>typeof v === 'string' ? '' : onlyStrings = false)
@@ -51,4 +52,3 @@ else {
 const parsedContent = parseContent(content);
 document.querySelector('.slides-container').innerHTML = parsedContent.html;
 document.querySelector('title').textContent = parsedContent.title;
-console.log(btoa('"# Heading 1 \\n## Heading 2\\n### Heading 3\\n> ### Note\\nI\'m still in blockquote\\n\\nParagraph with **bold text** and _italic_ one"'));
