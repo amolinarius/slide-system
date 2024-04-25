@@ -7,21 +7,21 @@ function parseContent(_content) {
     const converter = new showdown.Converter();
     if (typeof _content === 'string') {
         const html = _content.trim() !== '' ? converter.makeHtml(_content) : converter.makeHtml('# Empty Document');
-        result = {title: 'Untitled', html: `<div class="slide slide_0">${html}</div>`}
+        result = {title: 'Untitled', html: `<div class="slide slide_0 current">${html}</div>`}
     }
     else if (isStringArray(_content)) {
         result = {
             title: 'Untitled',
             html: _content.map((v, i)=>{
                 const html = v.trim() !== '' ? converter.makeHtml(v) : converter.makeHtml('# Empty Slide');
-                return `<div class="slide slide_${i}">${html}</div>`
+                return `<div class="slide slide_${i} ${i===0?'current':''}">${html}</div>`
             }).join('')
         }
     }
     else if (_content instanceof Object) {
         result = {
             title: _content.title || 'Untitled',
-            html: _content.pages.trim() !== '' ? parseContent(_content.pages).html : parseContent('# Empty Document').html
+            html: typeof _content === "string" && _content.pages.trim() === '' ? parseContent('# Empty Document').html : parseContent(_content.pages).html
         }
     }
     return result;

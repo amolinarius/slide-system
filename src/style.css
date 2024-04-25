@@ -8,10 +8,15 @@
 	font-family: 'Poppins', sans-serif;
 }
 .slides-container {
-	@apply bg-slate-200 rounded-md p-8;
+	@apply bg-slate-200 rounded-md;
 	width: 95vw;
 	height: 90vh;
 }
+.slide {
+	@apply w-full h-full p-8;
+}
+.slide:not(.current) {@apply hidden}
+
 .slide *:not(.slide * *), 
 .slide blockquote *:not(.slide blockquote * *):not(.slide blockquote *:last-child) {margin-bottom: 10px}
 blockquote {
