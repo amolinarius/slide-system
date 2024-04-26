@@ -53,3 +53,36 @@ document.querySelector('.slides-container').innerHTML = parsedContent.html;
 document.querySelector('title').textContent = parsedContent.title;
 
 hljs.highlightAll();
+
+var currentPage = 0;
+var pageCount = document.querySelectorAll('.slide').length;
+
+/**
+ * @param {KeyboardEvent} e
+ */
+function showNextSlide(e) {
+    e.preventDefault();
+    if (currentPage < pageCount - 1) {
+        document.querySelector(`.slide.slide_${currentPage++}`).classList.remove('current');
+        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+    }
+}
+/**
+ * @param {KeyboardEvent} e
+*/
+function showPreviousSlide(e) {
+    e.preventDefault();
+    if (currentPage > 0) {
+        document.querySelector(`.slide.slide_${currentPage--}`).classList.remove('current');
+        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+    }
+}
+
+document.addEventListener('keyup', e=>{
+    if (e.key === ' ') {e.shiftKey ? showPreviousSlide(e) : showNextSlide(e)}
+    else if (e.key === 'ArrowUp') {showPreviousSlide(e)}
+    else if (e.key === 'ArrowRight') {showNextSlide(e)}
+    else if (e.key === 'ArrowDown') {showNextSlide(e)}
+    else if (e.key === 'ArrowLeft') {showPreviousSlide(e)}
+    else {console.log(e.key)}
+});
