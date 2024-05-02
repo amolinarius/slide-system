@@ -7,14 +7,29 @@ function parseContent(_content) {
     const converter = new showdown.Converter();
     if (typeof _content === 'string') {
         const html = _content.trim() !== '' ? converter.makeHtml(_content) : converter.makeHtml('# Empty Document');
-        result = {title: 'Untitled', html: `<div class="slide slide_0 current">${html}</div>`}
+        if (_content.trim().startsWith("'use title';")) {
+            const slicedContent = _content.trim().slice(13).trim();
+            const html = slicedContent !== '' ? converter.makeHtml(slicedContent) : converter.makeHtml('# Empty Document');
+            result = {title: 'Untitled', html: `<div class="slide slide_title slide_0 current">${html}</div>`}
+        }
+        else {
+            const html = _content !== '' ? converter.makeHtml(_content) : converter.makeHtml('# Empty Document');
+            result = {title: 'Untitled', html: `<div class="slide slide_0 current">${html}</div>`}
+        }
     }
     else if (isStringArray(_content)) {
         result = {
             title: 'Untitled',
             html: _content.map((v, i)=>{
-                const html = v.trim() !== '' ? converter.makeHtml(v) : converter.makeHtml('# Empty Slide');
-                return `<div class="slide slide_${i} ${i===0?'current':''}">${html}</div>`
+                if (v.trim().startsWith("'use title';")) {
+                    const slicedContent = v.trim().slice(13).trim();
+                    const html = slicedContent !== '' ? converter.makeHtml(slicedContent) : converter.makeHtml('# Empty Document');
+                    return `<div class="slide slide_title slide_${i} ${i===0?'current':''}">${html}</div>`
+                }
+                else {
+                    const html = v.trim() !== '' ? converter.makeHtml(v) : converter.makeHtml('# Empty Slide');
+                    return `<div class="slide slide_${i} ${i===0?'current':''}">${html}</div>`
+                }
             }).join('')
         }
     }
@@ -26,6 +41,10 @@ function parseContent(_content) {
     }
     return result;
 }
+/**
+ * @param {*} _array
+ * @return {_array is string[]}
+ */
 function isStringArray(_array) {
     if (!(_array instanceof Array)) {return false}
     else {

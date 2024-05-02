@@ -15,6 +15,10 @@
 .slide {
 	@apply w-full h-full p-8;
 }
+.slide.slide_title {@apply flex justify-center items-center flex-col}
+.slide.slide_title h1 {@apply text-6xl}
+.slide.slide_title h2 {@apply text-5xl}
+.slide.slide_title h3 {@apply text-4xl}
 .slide:not(.current) {@apply hidden}
 
 .slide *:not(.slide * *), 
