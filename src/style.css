@@ -8,7 +8,7 @@
 	font-family: 'Poppins', sans-serif;
 }
 .slides-container {
-	@apply bg-slate-200 rounded-md;
+	@apply bg-slate-200 rounded-md overflow-hidden;
 	width: 95vw;
 	height: 90vh;
 }

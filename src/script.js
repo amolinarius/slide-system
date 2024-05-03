@@ -76,24 +76,30 @@ hljs.highlightAll();
 var currentPage = 0;
 var pageCount = document.querySelectorAll('.slide').length;
 
+const wait = ms => new Promise(resolve=>setTimeout(resolve, ms));
+
 /**
  * @param {KeyboardEvent} e
  */
-function showNextSlide(e) {
+async function showNextSlide(e) {
     e.preventDefault();
     if (currentPage < pageCount - 1) {
+        for (let i=0; i < 99; i++) {await wait(.5); document.querySelector(`.slide.slide_${currentPage}`).style.marginLeft = '-'+i+'vw'}
         document.querySelector(`.slide.slide_${currentPage++}`).classList.remove('current');
         document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+        document.querySelector(`.slide.slide_${currentPage-1}`).style.marginLeft = 'unset';
     }
 }
 /**
  * @param {KeyboardEvent} e
 */
-function showPreviousSlide(e) {
+async function showPreviousSlide(e) {
     e.preventDefault();
     if (currentPage > 0) {
+        for (let i=0; i < 99; i++) {await wait(.5); document.querySelector(`.slide.slide_${currentPage}`).style.marginLeft = i+'vw'}
         document.querySelector(`.slide.slide_${currentPage--}`).classList.remove('current');
         document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+        document.querySelector(`.slide.slide_${currentPage+1}`).style.marginLeft = 'unset';
     }
 }
 
