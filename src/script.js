@@ -84,10 +84,11 @@ const wait = ms => new Promise(resolve=>setTimeout(resolve, ms));
 async function showNextSlide(e) {
     e.preventDefault();
     if (currentPage < pageCount - 1) {
+        currentPage++;
         for (let i=0; i < 99; i++) {await wait(.5); document.querySelector(`.slide.slide_${currentPage}`).style.marginLeft = '-'+i+'vw'}
-        document.querySelector(`.slide.slide_${currentPage++}`).classList.remove('current');
-        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+        document.querySelector(`.slide.slide_${currentPage-1}`).classList.remove('current');
         document.querySelector(`.slide.slide_${currentPage-1}`).style.marginLeft = 'unset';
+        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
     }
 }
 /**
@@ -96,10 +97,11 @@ async function showNextSlide(e) {
 async function showPreviousSlide(e) {
     e.preventDefault();
     if (currentPage > 0) {
+        currentPage--;
         for (let i=0; i < 99; i++) {await wait(.5); document.querySelector(`.slide.slide_${currentPage}`).style.marginLeft = i+'vw'}
-        document.querySelector(`.slide.slide_${currentPage--}`).classList.remove('current');
-        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
+        document.querySelector(`.slide.slide_${currentPage+1}`).classList.remove('current');
         document.querySelector(`.slide.slide_${currentPage+1}`).style.marginLeft = 'unset';
+        document.querySelector(`.slide.slide_${currentPage}`).classList.add('current');
     }
 }
 
